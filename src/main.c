@@ -24,3 +24,67 @@ typedef struct {
   Posicao pos;
   int vivo;
 } Inimigo;
+
+// Variáveis globais
+#define INIMIGOS_POR_LINHA 6
+#define NUM_LINHAS 4
+#define NUM_INIMIGOS (INIMIGOS_POR_LINHA * NUM_LINHAS)
+#define MAX_PROJETEIS 3
+#define LARGURA // precisa definir
+#define ALTURA // precisa definir
+
+int pontuacao = 0;
+int contadorMovimentoProjetilInimigo = 0;
+
+// Funções do Código:
+
+// Função de inicialização dos elementos e do jogo em si
+void inicializa(Jogador **jogador, Inimigo **inimigos, Projetil **projeteisJogador, Projetil **projeteisInimigo){
+
+  *jogador = (Jogador *)malloc(sizeof(Jogador));
+  (*jogador)->pos.x = LARGURA / 2;
+  (*jogador)->pos.y = ALTURA - 3;
+
+  *inimigos = (Inimigo *)malloc(NUM_INIMIGOS * sizeof(Inimigo));
+  for (int i = 0; i < NUM_INIMIGOS; ++i){
+    (*inimigos)[i].pos.x = (i % INIMIGOS_POR_LINHA + 1) * (LARGURA / (INIMIGOS_POR_LINHA + 1));
+    (*inimigos)[i].pos.y = 3 + (i / INIMIGOS_POR_LINHA);
+    (*inimigos)[i].vivo = 1;
+  }
+
+  *projeteisJogador = (Projetil *)malloc(MAX_PROJETEIS * sizeof(Projetil));
+  *projeteisInimigo = (Projetil *)malloc(MAX_PROJETEIS * sizeof(Projetil));
+
+  for (int i = 0; i < MAX_PROJETEIS; ++i){
+    (*projeteisJogador)[i].ativo = 0;
+    (*projeteisInimigo)[i].ativo = 0;
+  }
+  
+}
+// Função para finalizar jogo
+void finaliza(){
+
+  keyboardDestroy();
+  timerDestroy();
+  screenDestroy();
+}
+
+int main() {
+    screenInit(1);
+    keyboardInit(0);
+
+    Jogador *jogador;
+    Inimigo *inimigos;
+    Projetil *projeteisJogador;
+    Projetil *projeteisInimigo;
+
+    inicializa(&jogador, &inimigos, &projeteisJogador, &projeteisInimigo);
+
+    free(jogador);
+    free(inimigos);
+    free(projeteisJogador);
+    free(projeteisInimigo);
+
+    finaliza();
+    return 0;
+}

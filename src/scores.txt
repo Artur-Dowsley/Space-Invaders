@@ -1,3 +1,0 @@
-Player: artur, Score: 120
-Player: felipe, Score: 240
-Player: Luca, Score: 80

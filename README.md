@@ -1,4 +1,4 @@
-# cli-lib
+# Space Invaders
 Command Line Interface library, for developing CLI applications and games in C. It has functions to access keyboard, screen and manage timing tasks.
 
 ## Requirements
@@ -7,14 +7,29 @@ Command Line Interface library, for developing CLI applications and games in C. 
    - MacOS
 - It is necessary to have GCC installed.
 
-## Usage 
-The file `main.c` has an example of how to use the Keyboard, Screen nd Timer functions. 
+## como executar o jogo
 
-To build this example via command line, just switch to library root directory and type the following command:
+clone o repositorio:
 ```
-$ gcc ./src/*.c -I./include -o cli-lib-example
+https://github.com/Artur-Dowsley/Space-Invaders.git
 ```
 
-To use this library to create your own apps, simply add source and header files to your project and compile it together with your own code, 
-replacing the main.c file to your own.
+va ate o diretorio correto
+
+```
+cd src
+```
+
+compile o codigo  usando:
+```
+gcc -o space_invaders main.c screen.c keyboard.c timer.c -lm 
+```
+execute o programa: 
+```
+./space_invaders
+```
+
+## como jogar
+
+aperte as teclas "d" e "a" para mover para a direita e para a esquerda e utilize o espaço para atirar
 
