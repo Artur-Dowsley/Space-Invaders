@@ -29,12 +29,12 @@ typedef struct {
 #define INIMIGOS_POR_LINHA 6
 #define NUM_LINHAS 4
 #define NUM_INIMIGOS (INIMIGOS_POR_LINHA * NUM_LINHAS)
-#define MAX_PROJETEIS 3
-#define LARGURA // precisa definir
-#define ALTURA // precisa definir
+#define MAX_PROJETEIS 4
+#define LARGURA 80
+#define ALTURA 24
 
-int pontuacao = 0;
-int contadorMovimentoProjetilInimigo = 0;
+int tempo = 0;
+int contadorProjetilInimigo = 0;
 
 // Funções do Código:
 
@@ -48,7 +48,7 @@ void inicializa(Jogador **jogador, Inimigo **inimigos, Projetil **projeteisJogad
   *inimigos = (Inimigo *)malloc(NUM_INIMIGOS * sizeof(Inimigo));
   for (int i = 0; i < NUM_INIMIGOS; ++i){
     (*inimigos)[i].pos.x = (i % INIMIGOS_POR_LINHA + 1) * (LARGURA / (INIMIGOS_POR_LINHA + 1));
-    (*inimigos)[i].pos.y = 3 + (i / INIMIGOS_POR_LINHA);
+    (*inimigos)[i].pos.y = 3 + (i / INIMIGOS_POR_LINHA) * 2;
     (*inimigos)[i].vivo = 1;
   }
 
@@ -61,6 +61,13 @@ void inicializa(Jogador **jogador, Inimigo **inimigos, Projetil **projeteisJogad
   }
   
 }
+
+void desenha_caractere(int x, int y, char caractere){
+
+  screenGotoxy(x, y); // Move o cursor para a posição (x, y)
+  putchar(caractere); // Desenha o caractere
+}
+
 // Função para finalizar jogo
 void finaliza(){
 
