@@ -1,13 +1,12 @@
 # Space Invaders
-Command Line Interface library, for developing CLI applications and games in C. It has functions to access keyboard, screen and manage timing tasks.
 
-## Requirements
-- This library works with the follwing OS:
-   - Linux based (Ubuntu, etc)
+## Requesitos
+- presisa de algum desses sistemas operacionais:
+   - Linux
    - MacOS
-- It is necessary to have GCC installed.
+- precisa ter o gcc instalado.
 
-## como executar o jogo
+## Como executar o jogo
 
 clone o repositorio:
 ```
@@ -29,7 +28,11 @@ execute o programa:
 ./space_invaders
 ```
 
-## como jogar
+## Como jogar
 
 aperte as teclas "d" e "a" para mover para a direita e para a esquerda e utilize o espaço para atirar
 
+
+## Objetivo
+
+eliminar todas as naves inimigas e evitar ser destruido
