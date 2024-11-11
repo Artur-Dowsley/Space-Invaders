@@ -68,6 +68,51 @@ void desenha_caractere(int x, int y, char caractere){
   putchar(caractere); // Desenha o caractere
 }
 
+// Função para desenhar o tempo no topo da tela
+void desenha_tempo() {
+    char str_tempo[40];
+    sprintf(str_tempo, "Tempo: %d segundos", tempo);
+    int tamanho_mensagem = strlen(str_tempo);
+    int inicio_x = (LARGURA - tamanho_mensagem) / 2;
+    screenSetColor(DARKGRAY, BLACK);
+    for (int i = 0; i < tamanho_mensagem; ++i) {
+        desenha_caractere(inicio_x + i, 0, str_tempo[i]);
+    }
+}
+
+
+// Função para definição do formato dos elementos
+void desenho(Jogador jogador, Inimigo inimigos[], Projetil projeteisJogador[], Projetil projeteisInimigo[]) {
+
+  screenClear();
+  screenInit(1);
+  screenSetColor(LIGHTGREEN, BLACK);
+  desenha_caractere(jogador.pos.x, jogador.pos.y, 'W');
+
+  for (int i = 0; i < NUM_INIMIGOS; ++i){
+    if (inimigos[i].vivo){
+            screenSetColor(RED, BLACK);
+            desenha_caractere(inimigos[i].pos.x - 1, inimigos[i].pos.y, '|');
+            desenha_caractere(inimigos[i].pos.x, inimigos[i].pos.y, 'o');
+            desenha_caractere(inimigos[i].pos.x + 1, inimigos[i].pos.y, '|');
+    }
+  }
+
+  for (int i = 0; i < MAX_PROJETEIS; ++i){
+    if (projeteisJogador[i].ativo){
+      screenSetColor(WHITE, BLACK);
+      desenha_caractere(projeteisJogador[i].pos.x, projeteisJogador[i].pos.y, '|');
+    }
+    if (projeteisInimigo[i].ativo){
+      screenSetColor(WHITE, BLACK);
+      desenha_caractere(projeteisInimigo[i].pos.x, projeteisInimigo[i].pos.y, '|');
+    }
+  }
+
+  desenha_tempo();
+  screenUpdate();
+}
+
 // Função para finalizar jogo
 void finaliza(){
 
@@ -86,6 +131,16 @@ int main() {
     Projetil *projeteisInimigo;
 
     inicializa(&jogador, &inimigos, &projeteisJogador, &projeteisInimigo);
+
+    while (1) {
+        desenho(*jogador, inimigos, projeteisJogador, projeteisInimigo);
+
+        if (timerTimeOver()) {
+            timerInit(60);
+        }
+
+        while (!timerTimeOver());
+    }
 
     free(jogador);
     free(inimigos);
