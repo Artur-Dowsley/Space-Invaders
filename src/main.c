@@ -71,7 +71,7 @@ void desenha_caractere(int x, int y, char caractere){
 // Função para desenhar o tempo no topo da tela
 void desenha_tempo() {
     char str_tempo[40];
-    sprintf(str_tempo, "Tempo: %d segundos", tempo);
+    sprintf(str_tempo, "Tempo: %d segundos", tempo/16);
     int tamanho_mensagem = strlen(str_tempo);
     int inicio_x = (LARGURA - tamanho_mensagem) / 2;
     screenSetColor(DARKGRAY, BLACK);
@@ -113,6 +113,109 @@ void desenho(Jogador jogador, Inimigo inimigos[], Projetil projeteisJogador[], P
   screenUpdate();
 }
 
+// Função para atualização de informações na tela
+void atualiza(Jogador *jogador, Inimigo inimigos[], Projetil projeteisJogador[], Projetil projeteisInimigo[]) {
+    int todosInimigosMortos = 1; // Variável para verificar se todos os inimigos estão mortos
+    tempo++;
+
+    for (int i = 0; i < MAX_PROJETEIS; ++i) {
+        if (projeteisJogador[i].ativo) {
+            projeteisJogador[i].pos.y--;
+            if (projeteisJogador[i].pos.y < 1) {
+                projeteisJogador[i].ativo = 0;
+            }
+
+            for (int j = 0; j < NUM_INIMIGOS; ++j) {
+                if (inimigos[j].vivo && projeteisJogador[i].pos.x == inimigos[j].pos.x && projeteisJogador[i].pos.y == inimigos[j].pos.y
+                || inimigos[j].vivo && projeteisJogador[i].pos.x == inimigos[j].pos.x+1 && projeteisJogador[i].pos.y == inimigos[j].pos.y
+                || inimigos[j].vivo && projeteisJogador[i].pos.x == inimigos[j].pos.x-1 && projeteisJogador[i].pos.y == inimigos[j].pos.y) {
+
+                    inimigos[j].vivo = 0;
+                    projeteisJogador[i].ativo = 0;
+                }
+            }
+        }
+
+        if (projeteisInimigo[i].ativo) {
+            if (contadorProjetilInimigo % 2== 0) {
+                projeteisInimigo[i].pos.y++;
+                if (projeteisInimigo[i].pos.y >= ALTURA - 1) {
+                    projeteisInimigo[i].ativo = 0;
+                }
+
+                if (projeteisInimigo[i].pos.x == jogador->pos.x && projeteisInimigo[i].pos.y == jogador->pos.y) {
+                    screenClear();
+                    screenUpdate();
+                                     // Game Over
+                    timerInit(3000); // Inicializa o temporizador com 3000 ms
+                    while (!timerTimeOver()); // Aguarda até que o tempo tenha passado
+                    
+                    exit(0);
+                }
+            }
+        }
+    }
+
+    contadorProjetilInimigo++;
+
+    for (int i = 0; i < NUM_INIMIGOS; ++i) {
+        if (inimigos[i].vivo) {
+            todosInimigosMortos = 0; // Se encontrar um inimigo vivo, define como 0
+            if (rand() % 100 < 10) {
+                for (int j = 0; j < 3; ++j) {
+                    for (int k = 0; k < MAX_PROJETEIS; ++k) {
+                        if (!projeteisInimigo[k].ativo) {
+                            projeteisInimigo[k].pos.x = inimigos[i].pos.x;
+                            projeteisInimigo[k].pos.y = inimigos[i].pos.y + 1;
+                            projeteisInimigo[k].ativo = 1;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    if (todosInimigosMortos) {
+        screenClear();
+        screenUpdate();
+                         // Ganhou
+        timerInit(3000); // Inicializa o temporizador com 3000 ms
+        while (!timerTimeOver()); // Aguarda até que o tempo tenha passado
+        
+        exit(0);
+    }
+
+    if (keyhit()) {
+        int ch = readch();
+        if (ch == 'a' && jogador->pos.x > 2) {
+            jogador->pos.x--;
+        }
+        if (ch == 'd' && jogador->pos.x < LARGURA - 3) {
+            jogador->pos.x++;
+        }
+        if (ch == ' ') {
+            int podeAtirar = 1;
+            for (int i = 0; i < MAX_PROJETEIS; ++i) {
+                if (projeteisJogador[i].ativo) {
+                    podeAtirar = 0;
+                    break;
+                }
+            }
+            if (podeAtirar) {
+                for (int i = 0; i < MAX_PROJETEIS; ++i) {
+                    if (!projeteisJogador[i].ativo) {
+                        projeteisJogador[i].pos.x = jogador->pos.x;
+                        projeteisJogador[i].pos.y = jogador->pos.y - 1;
+                        projeteisJogador[i].ativo = 1;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+
 // Função para finalizar jogo
 void finaliza(){
 
@@ -134,6 +237,7 @@ int main() {
 
     while (1) {
         desenho(*jogador, inimigos, projeteisJogador, projeteisInimigo);
+        atualiza(jogador, inimigos, projeteisJogador, projeteisInimigo);
 
         if (timerTimeOver()) {
             timerInit(60);
