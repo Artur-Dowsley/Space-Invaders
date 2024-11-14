@@ -68,6 +68,16 @@ void desenha_caractere(int x, int y, char caractere){
   putchar(caractere); // Desenha o caractere
 }
 
+void pedirNome(char *nome) {
+    int inicio_x = (LARGURA - 20) / 2;
+    int inicio_y = ALTURA / 2 + 2;
+    screenGotoxy(inicio_x, inicio_y);
+    printf("Digite seu nome: ");
+    screenGotoxy(inicio_x + strlen("Digite seu nome: "), inicio_y);
+    fgets(nome, 20, stdin);
+    nome[strcspn(nome, "\n")] = '\0';
+}
+
 // Função para desenhar o tempo no topo da tela
 void desenha_tempo() {
     char str_tempo[40];
