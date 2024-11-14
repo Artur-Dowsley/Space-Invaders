@@ -135,6 +135,20 @@ void mostrarRecordes(Recorde *recordes, int numRecordes)
     }
 }
 
+// Função de GAME OVER caso jogador seja derrotado
+void desenha_game_over(){
+
+  screenInit(1);
+  const char *mensagem = "GAME-OVER";
+  int tamanho_mensagem = strlen(mensagem);
+  int inicio_x = (LARGURA - tamanho_mensagem) / 2;
+  int inicio_y = ALTURA / 2;
+  screenSetColor(RED, BLACK);
+  for (int i = 0; i < tamanho_mensagem; ++i){
+    desenha_caractere(inicio_x + i, inicio_y, mensagem[i]);
+  }
+}
+
 // Função para desenhar o tempo no topo da tela
 void desenha_tempo() {
     char str_tempo[40];
