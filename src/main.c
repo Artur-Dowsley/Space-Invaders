@@ -101,10 +101,8 @@ void desenho(Jogador jogador, Inimigo inimigos[], Projetil projeteisJogador[], P
 
   for (int i = 0; i < NUM_INIMIGOS; ++i){
     if (inimigos[i].vivo){
-            screenSetColor(RED, BLACK);
-            desenha_caractere(inimigos[i].pos.x - 1, inimigos[i].pos.y, '|');
-            desenha_caractere(inimigos[i].pos.x, inimigos[i].pos.y, 'o');
-            desenha_caractere(inimigos[i].pos.x + 1, inimigos[i].pos.y, '|');
+            screenGotoxy(inimigos[i].pos.x - 1, inimigos[i].pos.y);
+            printf("👾");
     }
   }
 
@@ -136,9 +134,7 @@ void atualiza(Jogador *jogador, Inimigo inimigos[], Projetil projeteisJogador[],
             }
 
             for (int j = 0; j < NUM_INIMIGOS; ++j) {
-                if (inimigos[j].vivo && projeteisJogador[i].pos.x == inimigos[j].pos.x && projeteisJogador[i].pos.y == inimigos[j].pos.y
-                || inimigos[j].vivo && projeteisJogador[i].pos.x == inimigos[j].pos.x+1 && projeteisJogador[i].pos.y == inimigos[j].pos.y
-                || inimigos[j].vivo && projeteisJogador[i].pos.x == inimigos[j].pos.x-1 && projeteisJogador[i].pos.y == inimigos[j].pos.y) {
+                if (inimigos[j].vivo && projeteisJogador[i].pos.x == inimigos[j].pos.x && projeteisJogador[i].pos.y == inimigos[j].pos.y) {
 
                     inimigos[j].vivo = 0;
                     projeteisJogador[i].ativo = 0;
