@@ -205,7 +205,8 @@ void atualiza(Jogador *jogador, Inimigo inimigos[], Projetil projeteisJogador[],
             }
 
             for (int j = 0; j < NUM_INIMIGOS; ++j) {
-                if (inimigos[j].vivo && projeteisJogador[i].pos.x == inimigos[j].pos.x && projeteisJogador[i].pos.y == inimigos[j].pos.y) {
+                if (inimigos[j].vivo && projeteisJogador[i].pos.x == inimigos[j].pos.x && projeteisJogador[i].pos.y == inimigos[j].pos.y
+                || inimigos[j].vivo && projeteisJogador[i].pos.x == inimigos[j].pos.x-1 && projeteisJogador[i].pos.y == inimigos[j].pos.y) {
 
                     inimigos[j].vivo = 0;
                     projeteisJogador[i].ativo = 0;
