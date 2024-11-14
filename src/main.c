@@ -25,6 +25,11 @@ typedef struct {
   int vivo;
 } Inimigo;
 
+typedef struct {
+    char nome[20];
+    int tempo;
+} Recorde;
+
 // Variáveis globais
 #define INIMIGOS_POR_LINHA 6
 #define NUM_LINHAS 4
@@ -76,6 +81,72 @@ void pedirNome(char *nome) {
     screenGotoxy(inicio_x + strlen("Digite seu nome: "), inicio_y);
     fgets(nome, 20, stdin);
     nome[strcspn(nome, "\n")] = '\0';
+}
+
+// Função para adicionar o recorde no arquivo
+void adicionarRecorde(Recorde **recordes, int *numRecordes, int tempo)
+{
+    char nome[20];
+    pedirNome(nome);  // Pede o nome do jogador
+
+    // Adiciona o recorde na memória
+    *recordes = realloc(*recordes, (*numRecordes + 1) * sizeof(Recorde));
+    snprintf((*recordes)[*numRecordes].nome, 20, "%s", nome);
+    (*recordes)[*numRecordes].tempo = tempo;
+    (*numRecordes)++;
+
+    FILE *arquivo = fopen("recordes.txt", "a");
+    if (arquivo)
+    {
+        fprintf(arquivo, "%s %d\n", nome, tempo);
+        fclose(arquivo);
+    }
+}
+
+// Função para carregar os recordes do arquivo
+void carregarRecordes(Recorde **recordes, int *numRecordes)
+{
+    FILE *arquivo = fopen("recordes.txt", "r");
+
+    if (arquivo)
+    {
+        char nome[20];
+        int tempo;
+
+        while (fscanf(arquivo, "%s %d", nome, &tempo) == 2)
+        {
+            *recordes = realloc(*recordes, (*numRecordes + 1) * sizeof(Recorde));
+            snprintf((*recordes)[*numRecordes].nome, 20, "%s", nome);
+            (*recordes)[*numRecordes].tempo = tempo;
+            (*numRecordes)++;
+        }
+        fclose(arquivo);
+    }
+}
+
+// Função para mostrar os recordes
+void mostrarRecordes(Recorde *recordes, int numRecordes)
+{
+    screenClear();
+    printf("Recordes:\n");
+    for (int i = 0; i < numRecordes; i++)
+    {
+        printf("%d. %s - %d segundos\n", i + 1, recordes[i].nome, recordes[i].tempo);
+    }
+}
+
+// Função de GAME OVER caso jogador seja derrotado
+void desenha_game_over(){
+
+  screenInit(1);
+  const char *mensagem = "GAME-OVER";
+  int tamanho_mensagem = strlen(mensagem);
+  int inicio_x = (LARGURA - tamanho_mensagem) / 2;
+  int inicio_y = ALTURA / 2;
+  screenSetColor(RED, BLACK);
+  for (int i = 0; i < tamanho_mensagem; ++i){
+    desenha_caractere(inicio_x + i, inicio_y, mensagem[i]);
+  }
 }
 
 // Função para desenhar o tempo no topo da tela
