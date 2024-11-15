@@ -40,6 +40,8 @@ typedef struct {
 
 int tempo = 0;
 int contadorProjetilInimigo = 0;
+Recorde *recordes = NULL;
+int numRecordes=0;
 
 // Funções do Código:
 
@@ -149,6 +151,29 @@ void desenha_game_over(){
   }
 }
 
+// Função para mensagem de Vitória após jogador eliminar todos inimigos
+void tela_vitoria()
+{
+    screenInit(1);
+    const char *mensagem = "VOCE VENCEU!";
+    int tamanho_mensagem = strlen(mensagem);
+    int inicio_x = (LARGURA - tamanho_mensagem) / 2;
+    int inicio_y = ALTURA / 2;
+    screenSetColor(GREEN, BLACK);
+
+    for (int i = 0; i < tamanho_mensagem; ++i)
+    {
+        desenha_caractere(inicio_x + i, inicio_y, mensagem[i]);
+    }
+
+    adicionarRecorde(&recordes, &numRecordes, tempo/16);
+    mostrarRecordes(recordes, numRecordes);
+    timerInit(3000);
+    while (!timerTimeOver());
+    exit(0);
+
+}
+
 // Função para desenhar o tempo no topo da tela
 void desenha_tempo() {
     char str_tempo[40];
@@ -224,7 +249,7 @@ void atualiza(Jogador *jogador, Inimigo inimigos[], Projetil projeteisJogador[],
                 if (projeteisInimigo[i].pos.x == jogador->pos.x && projeteisInimigo[i].pos.y == jogador->pos.y) {
                     screenClear();
                     screenUpdate();
-                                     // Game Over
+                    desenha_game_over(); // Game Over
                     timerInit(3000); // Inicializa o temporizador com 3000 ms
                     while (!timerTimeOver()); // Aguarda até que o tempo tenha passado
                     
@@ -257,7 +282,7 @@ void atualiza(Jogador *jogador, Inimigo inimigos[], Projetil projeteisJogador[],
     if (todosInimigosMortos) {
         screenClear();
         screenUpdate();
-                         // Ganhou
+        tela_vitoria();  // Ganhou
         timerInit(3000); // Inicializa o temporizador com 3000 ms
         while (!timerTimeOver()); // Aguarda até que o tempo tenha passado
         
@@ -310,6 +335,8 @@ int main() {
     Inimigo *inimigos;
     Projetil *projeteisJogador;
     Projetil *projeteisInimigo;
+
+    carregarRecordes(&recordes, &numRecordes);
 
     inicializa(&jogador, &inimigos, &projeteisJogador, &projeteisInimigo);
 
