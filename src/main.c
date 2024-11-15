@@ -42,6 +42,7 @@ int tempo = 0;
 int contadorProjetilInimigo = 0;
 Recorde *recordes = NULL;
 int numRecordes=0;
+int especial = 0;
 
 // Funções do Código:
 
@@ -174,14 +175,16 @@ void tela_vitoria()
 
 }
 
-// Função para desenhar o tempo no topo da tela
-void desenha_tempo() {
-    char str_tempo[40];
-    sprintf(str_tempo, "Tempo: %d segundos", tempo/16);
+// Função para desenhar o tempo e o especial no topo da tela
+void desenha_tempo()
+{
+    char str_tempo[100];
+    snprintf(str_tempo, sizeof(str_tempo), "Tempo: %d segundos | Especial: %d", tempo / 16, especial);
     int tamanho_mensagem = strlen(str_tempo);
     int inicio_x = (LARGURA - tamanho_mensagem) / 2;
     screenSetColor(DARKGRAY, BLACK);
-    for (int i = 0; i < tamanho_mensagem; ++i) {
+    for (int i = 0; i < tamanho_mensagem; ++i)
+    {
         desenha_caractere(inicio_x + i, 0, str_tempo[i]);
     }
 }
@@ -219,6 +222,12 @@ void desenho(Jogador jogador, Inimigo inimigos[], Projetil projeteisJogador[], P
 
 // Função para atualização de informações na tela
 void atualiza(Jogador *jogador, Inimigo inimigos[], Projetil projeteisJogador[], Projetil projeteisInimigo[]) {
+
+    if (especial < 100)
+    {
+        especial++;
+    }
+
     int todosInimigosMortos = 1; // Variável para verificar se todos os inimigos estão mortos
     tempo++;
 
@@ -291,6 +300,20 @@ void atualiza(Jogador *jogador, Inimigo inimigos[], Projetil projeteisJogador[],
 
     if (keyhit()) {
         int ch = readch();
+
+        if (ch == 's' && especial == 100)
+        {
+            for (int i = 0; i < MAX_PROJETEIS; ++i)
+            {
+                if (!projeteisJogador[i].ativo)
+                {
+                    projeteisJogador[i].pos.x = jogador->pos.x - 1 + i; 
+                    projeteisJogador[i].pos.y = jogador->pos.y - 1;
+                    projeteisJogador[i].ativo = 1;
+                }
+            }
+            especial = 0; 
+        }
         if (ch == 'a' && jogador->pos.x > 2) {
             jogador->pos.x--;
         }
