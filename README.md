@@ -31,10 +31,10 @@ gcc -o space_invaders main.c screen.c keyboard.c timer.c -lm
 
 ## Como jogar
 
-Aperte as teclas "d" e "a" para mover para a direita e para a esquerda e utilize o espaço para atirar
-se for atingido por um tiro inimigo sera destruido
+Aperte as teclas "d" e "a" para mover para a direita e para a esquerda ,aperte "s" para usar o especial e utilize o espaço para atirar.
+Se for atingido por um tiro inimigo sera destruido
 
 
 ## Objetivo
 
-Eliminar todas as naves inimigas e evitar ser destruido
+Eliminar todas os aliens e evitar ser destruido
