@@ -6,7 +6,6 @@
 #include <string.h>
 #include <time.h>
 
-// Estruturas para as definições dos elementos
 typedef struct {
   int x, y;
 } Posicao;
@@ -30,7 +29,6 @@ typedef struct {
     int tempo;
 } Recorde;
 
-// Variáveis globais
 #define INIMIGOS_POR_LINHA 6
 #define NUM_LINHAS 4
 #define NUM_INIMIGOS (INIMIGOS_POR_LINHA * NUM_LINHAS)
@@ -44,9 +42,6 @@ Recorde *recordes = NULL;
 int numRecordes=0;
 int especial = 0;
 
-// Funções do Código:
-
-// Função de inicialização dos elementos e do jogo em si
 void inicializa(Jogador **jogador, Inimigo **inimigos, Projetil **projeteisJogador, Projetil **projeteisInimigo){
 
   *jogador = (Jogador *)malloc(sizeof(Jogador));
@@ -72,8 +67,8 @@ void inicializa(Jogador **jogador, Inimigo **inimigos, Projetil **projeteisJogad
 
 void desenha_caractere(int x, int y, char caractere){
 
-  screenGotoxy(x, y); // Move o cursor para a posição (x, y)
-  putchar(caractere); // Desenha o caractere
+  screenGotoxy(x, y);
+  putchar(caractere); 
 }
 
 void pedirNome(char *nome) {
@@ -86,13 +81,11 @@ void pedirNome(char *nome) {
     nome[strcspn(nome, "\n")] = '\0';
 }
 
-// Função para adicionar o recorde no arquivo
 void adicionarRecorde(Recorde **recordes, int *numRecordes, int tempo)
 {
     char nome[20];
-    pedirNome(nome);  // Pede o nome do jogador
+    pedirNome(nome);  
 
-    // Adiciona o recorde na memória
     *recordes = realloc(*recordes, (*numRecordes + 1) * sizeof(Recorde));
     snprintf((*recordes)[*numRecordes].nome, 20, "%s", nome);
     (*recordes)[*numRecordes].tempo = tempo;
@@ -106,7 +99,6 @@ void adicionarRecorde(Recorde **recordes, int *numRecordes, int tempo)
     }
 }
 
-// Função para carregar os recordes do arquivo
 void carregarRecordes(Recorde **recordes, int *numRecordes)
 {
     FILE *arquivo = fopen("recordes.txt", "r");
@@ -127,7 +119,6 @@ void carregarRecordes(Recorde **recordes, int *numRecordes)
     }
 }
 
-// Função para mostrar os recordes
 void mostrarRecordes(Recorde *recordes, int numRecordes)
 {
     screenClear();
@@ -138,7 +129,6 @@ void mostrarRecordes(Recorde *recordes, int numRecordes)
     }
 }
 
-// Função de GAME OVER caso jogador seja derrotado
 void desenha_game_over(){
 
   screenInit(1);
@@ -152,7 +142,6 @@ void desenha_game_over(){
   }
 }
 
-// Função para mensagem de Vitória após jogador eliminar todos inimigos
 void tela_vitoria()
 {
     screenInit(1);
@@ -175,7 +164,6 @@ void tela_vitoria()
 
 }
 
-// Função para desenhar o tempo e o especial no topo da tela
 void desenha_tempo()
 {
     char str_tempo[100];
@@ -190,7 +178,6 @@ void desenha_tempo()
 }
 
 
-// Função para definição do formato dos elementos
 void desenho(Jogador jogador, Inimigo inimigos[], Projetil projeteisJogador[], Projetil projeteisInimigo[]) {
 
   screenClear();
@@ -220,7 +207,6 @@ void desenho(Jogador jogador, Inimigo inimigos[], Projetil projeteisJogador[], P
   screenUpdate();
 }
 
-// Função para atualização de informações na tela
 void atualiza(Jogador *jogador, Inimigo inimigos[], Projetil projeteisJogador[], Projetil projeteisInimigo[]) {
 
     if (especial < 100)
@@ -228,7 +214,7 @@ void atualiza(Jogador *jogador, Inimigo inimigos[], Projetil projeteisJogador[],
         especial++;
     }
 
-    int todosInimigosMortos = 1; // Variável para verificar se todos os inimigos estão mortos
+    int todosInimigosMortos = 1;
     tempo++;
 
     for (int i = 0; i < MAX_PROJETEIS; ++i) {
@@ -258,9 +244,9 @@ void atualiza(Jogador *jogador, Inimigo inimigos[], Projetil projeteisJogador[],
                 if (projeteisInimigo[i].pos.x == jogador->pos.x && projeteisInimigo[i].pos.y == jogador->pos.y) {
                     screenClear();
                     screenUpdate();
-                    desenha_game_over(); // Game Over
-                    timerInit(3000); // Inicializa o temporizador com 3000 ms
-                    while (!timerTimeOver()); // Aguarda até que o tempo tenha passado
+                    desenha_game_over(); 
+                    timerInit(3000);
+                    while (!timerTimeOver());
                     
                     exit(0);
                 }
@@ -272,7 +258,7 @@ void atualiza(Jogador *jogador, Inimigo inimigos[], Projetil projeteisJogador[],
 
     for (int i = 0; i < NUM_INIMIGOS; ++i) {
         if (inimigos[i].vivo) {
-            todosInimigosMortos = 0; // Se encontrar um inimigo vivo, define como 0
+            todosInimigosMortos = 0; 
             if (rand() % 100 < 10) {
                 for (int j = 0; j < 3; ++j) {
                     for (int k = 0; k < MAX_PROJETEIS; ++k) {
@@ -291,9 +277,9 @@ void atualiza(Jogador *jogador, Inimigo inimigos[], Projetil projeteisJogador[],
     if (todosInimigosMortos) {
         screenClear();
         screenUpdate();
-        tela_vitoria();  // Ganhou
-        timerInit(3000); // Inicializa o temporizador com 3000 ms
-        while (!timerTimeOver()); // Aguarda até que o tempo tenha passado
+        tela_vitoria(); 
+        timerInit(3000); 
+        while (!timerTimeOver()); 
         
         exit(0);
     }
@@ -342,7 +328,6 @@ void atualiza(Jogador *jogador, Inimigo inimigos[], Projetil projeteisJogador[],
     }
 }
 
-// Função para finalizar jogo
 void finaliza(){
 
   keyboardDestroy();
