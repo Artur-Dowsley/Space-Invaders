@@ -1,10 +1,10 @@
 # Space Invaders
 
-## Requesitos
-- precisa estar utilizando algum desses sistemas operacionais:
+## Requisitos
+- Precisa estar utilizando algum desses sistemas operacionais:
    - Linux
    - MacOS
-- precisa ter o gcc instalado.
+- Precisa ter o gcc instalado.
 
 ## Como executar o jogo
 
@@ -32,9 +32,9 @@ gcc -o space_invaders main.c screen.c keyboard.c timer.c -lm
 ## Como jogar
 
 Aperte as teclas "d" e "a" para mover para a direita e para a esquerda ,aperte "s" para usar o especial e utilize o espaço para atirar.
-Se for atingido por um tiro inimigo sera destruido
+Se for atingido por um tiro inimigo, você será destruído
 
 
 ## Objetivo
 
-Eliminar todas os aliens e evitar ser destruido
+Eliminar todas os aliens e evitar ser atingido.
