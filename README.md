@@ -37,4 +37,4 @@ Se for atingido por um tiro inimigo, você será destruído
 
 ## Objetivo
 
-Eliminar todas os aliens e evitar ser atingido.
+Eliminar todos os aliens e evitar ser atingido.
