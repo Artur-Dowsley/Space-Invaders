@@ -1,6 +1,6 @@
 # Space Invaders
 
-Uma versão do clássico jogo **Space Invaders** desenvolvida em **C**. Controle sua nave, elimine os alienígenas e sobreviva o máximo possível!
+Uma versão do clássico jogo **Space Invaders** desenvolvida em **C**. Controle sua nave e elimine os alienígenas!
 
 ## Requisitos do Sistema
 Para executar o jogo, você precisa:
