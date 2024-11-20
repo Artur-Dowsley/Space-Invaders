@@ -1,19 +1,32 @@
 # Space Invaders
 
-## Requisitos
-- Precisa estar utilizando algum desses sistemas operacionais:
+Uma versão do clássico jogo **Space Invaders** desenvolvida em **C**. Controle sua nave, elimine os alienígenas e sobreviva o máximo possível!
+
+## Requisitos do Sistema
+Para executar o jogo, você precisa:
+
+- **Sistema Operacional**:
    - Linux
-   - MacOS
-- Precisa ter o gcc instalado.
+   - macOS
+- **Dependências**:
+   - gcc instalado no sistema.
+
+   
 
 ## Como executar o jogo
 
 - Clone o repositorio:
 ```
-https://github.com/Artur-Dowsley/Space-Invaders.git
+git clone https://github.com/Artur-Dowsley/Space-Invaders.git
+```
+- Entre no arquivo "Space-Invaders"
+
+```
+cd .\Space-Invaders\
 ```
 
-- Va ate o diretorio correto
+- Navegue até o diretório correto
+
 
 ```
 cd src
@@ -27,14 +40,30 @@ gcc -o space_invaders main.c screen.c keyboard.c timer.c -lm
 ```
 ./space_invaders
 ```
+## Como Jogar:
+Use as seguintes teclas para controlar o jogo
+- Tecla "a": mover para a esquerda.
+- Tecla "d": mover para a direita.
+- Tecla "espaço": atirar.
+- Tecla "s": usar o ataque especial.
+
+## Dicas:
+- Evite os tiros inimigos, pois um único impacto destruirá sua nave.
+- Elimine todos os alienígenas para completar o objetivo.
+- Fique atento ao uso do ataque especial, ele pode ser um salvador em momentos críticos!
 
 
-## Como jogar
+## Objetivo do jogo:
+O objetivo é eliminar todos os alienígenas no menor tempo possível. Tente superar seu próprio tempo ou desafiar outros jogadores!
 
-Aperte as teclas "d" e "a" para mover para a direita e para a esquerda ,aperte "s" para usar o especial e utilize o espaço para atirar.
-Se for atingido por um tiro inimigo, você será destruído
+## Ranking
+Ao finalizar o jogo, será solicitado que você insira seu nome. O jogo então registrará o tempo que você levou para eliminar todos os alienígenas e salvará essa informação no arquivo recordes.txt, onde poderá ser visualizada posteriormente. Tente bater seu próprio tempo ou desafiar outros jogadores para ver quem consegue o melhor desempenho!
+
+## Ataque Especial
+
+O **ataque especial** dispara **4 tiros de uma vez**, em linha reta, lado a lado.
+
+- **Como usar**:
+   - **Tecla de Ativação**: Pressione **"s"** para ativar.
 
 
-## Objetivo
-
-Eliminar todos os aliens e evitar ser atingido.
