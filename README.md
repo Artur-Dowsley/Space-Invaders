@@ -19,11 +19,6 @@ Para executar o jogo, você precisa:
 ```
 git clone https://github.com/Artur-Dowsley/Space-Invaders.git
 ```
-- Entre no arquivo "Space-Invaders"
-
-```
-cd .\Space-Invaders\
-```
 
 - Navegue até o diretório correto
 
