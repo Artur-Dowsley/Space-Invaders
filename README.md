@@ -54,10 +54,10 @@ Use as seguintes teclas para controlar o jogo
 
 
 ## Objetivo do jogo:
-O objetivo é eliminar todos os alienígenas no menor tempo possível. Tente superar seu próprio tempo ou desafiar outros jogadores!
+O objetivo é **eliminar todos os alienígenas no menor tempo possível**. Tente superar seu próprio tempo ou desafiar outros jogadores!
 
 ## Ranking
-Ao finalizar o jogo, será solicitado que você insira seu nome. O jogo então registrará o tempo que você levou para eliminar todos os alienígenas e salvará essa informação no arquivo recordes.txt, onde poderá ser visualizada posteriormente. Tente bater seu próprio tempo ou desafiar outros jogadores para ver quem consegue o melhor desempenho!
+Ao finalizar o jogo, será solicitado que você insira seu nome. O jogo então registrará o tempo que você levou para eliminar todos os alienígenas e salvará essa informação no arquivo recordes.txt, onde poderá ser visualizada posteriormente. **Tente bater seu próprio tempo ou desafiar outros jogadores para ver quem consegue o melhor desempenho!**
 
 ## Ataque Especial
 
