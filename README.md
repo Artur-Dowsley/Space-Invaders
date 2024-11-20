@@ -42,15 +42,15 @@ gcc -o space_invaders main.c screen.c keyboard.c timer.c -lm
 ```
 ## Como Jogar:
 Use as seguintes teclas para controlar o jogo
-- Tecla "a": mover para a esquerda.
-- Tecla "d": mover para a direita.
-- Tecla "espaço": atirar.
-- Tecla "s": usar o ataque especial.
+- **Tecla "a":** mover para a esquerda.
+- **Tecla "d":** mover para a direita.
+- **Tecla "espaço":** atirar.
+- **Tecla "s":** usar o ataque especial.
 
 ## Dicas:
-- Evite os tiros inimigos, pois um único impacto destruirá sua nave.
-- Elimine todos os alienígenas para completar o objetivo.
-- Fique atento ao uso do ataque especial, ele pode ser um salvador em momentos críticos!
+- **Evite os tiros inimigos**, pois um único impacto destruirá sua nave.
+- **Elimine todos os alienígenas** para completar o objetivo.
+- Fique atento ao uso do **ataque especial**, ele pode ser um salvador em momentos críticos!
 
 
 ## Objetivo do jogo:
